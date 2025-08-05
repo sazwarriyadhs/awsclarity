@@ -23,6 +23,7 @@ import {
   ChevronDown,
   GitBranch,
   DatabaseZap,
+  LogOut,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -36,6 +37,7 @@ import {
 import { useLanguage } from '@/contexts/LanguageContext';
 import type { Language } from '@/lib/translations';
 import Image from 'next/image';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -59,6 +61,9 @@ function AppLayout({ children }: { children: React.ReactNode }) {
   };
 
   const currentPageTitle = pageTitles[pathname] || t.appName;
+
+  // Dummy user data for profile
+  const user = { name: 'Alice', email: 'alice@example.com', avatar: 'https://placehold.co/100x100.png' };
 
   return (
     <div className="flex min-h-screen w-full">
@@ -162,16 +167,36 @@ function AppLayout({ children }: { children: React.ReactNode }) {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon" className="rounded-full">
-                  <CircleUserRound className="h-6 w-6" />
+                  <Avatar className="h-9 w-9">
+                    <AvatarImage src={user.avatar} data-ai-hint="person portrait" />
+                    <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+                  </Avatar>
                   <span className="sr-only">User menu</span>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuLabel>{t.profile}</DropdownMenuLabel>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuLabel className="font-normal">
+                  <div className="flex flex-col space-y-1">
+                    <p className="text-sm font-medium leading-none">{user.name}</p>
+                    <p className="text-xs leading-none text-muted-foreground">
+                      {user.email}
+                    </p>
+                  </div>
+                </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>{t.settings}</DropdownMenuItem>
+                 <Link href="/settings">
+                  <DropdownMenuItem>
+                    <Settings className="mr-2 h-4 w-4" />
+                    <span>{t.settings}</span>
+                  </DropdownMenuItem>
+                </Link>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>{t.logout}</DropdownMenuItem>
+                 <Link href="#">
+                  <DropdownMenuItem>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>{t.logout}</span>
+                  </DropdownMenuItem>
+                </Link>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
