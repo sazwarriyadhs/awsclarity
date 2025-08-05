@@ -2,6 +2,7 @@
 
 import { z } from "zod";
 import { summarizeLogs } from "@/ai/flows/summarize-logs";
+import { getCostData, GetCostDataOutput } from "@/ai/flows/get-cost-data";
 
 const formSchema = z.object({
   timeFrame: z.string(),
@@ -9,16 +10,16 @@ const formSchema = z.object({
   logData: z.string().min(10, "Log data must be at least 10 characters."),
 });
 
-type State = {
+type SummarizeState = {
   status: "success" | "error" | "idle";
   message?: string;
   summary?: string;
 };
 
 export async function handleSummarizeLogs(
-  prevState: State,
+  prevState: SummarizeState,
   formData: FormData
-): Promise<State> {
+): Promise<SummarizeState> {
   const validatedFields = formSchema.safeParse({
     timeFrame: formData.get("timeFrame"),
     awsResource: formData.get("awsResource"),
@@ -39,4 +40,22 @@ export async function handleSummarizeLogs(
     console.error(error);
     return { status: "error", message: "Failed to generate summary." };
   }
+}
+
+type CostDataState = {
+    status: "success" | "error";
+    message?: string;
+    data?: GetCostDataOutput;
+}
+
+export async function handleGetCostData(
+    timePeriod: 'daily' | 'monthly'
+): Promise<CostDataState> {
+    try {
+        const result = await getCostData({ timePeriod });
+        return { status: "success", data: result };
+    } catch (error) {
+        console.error(error);
+        return { status: "error", message: "Failed to fetch cost data." };
+    }
 }
