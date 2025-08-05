@@ -56,9 +56,9 @@ function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-screen w-full">
       <Sidebar variant="sidebar" collapsible="icon">
-        <SidebarHeader className="h-16 items-center p-4">
+        <SidebarHeader className="items-center p-4 h-auto">
           <Link href="/dashboard" className="flex items-center gap-2">
-            <Image src="/image/logo.png" alt="Logo" width={32} height={32} />
+            <Image src="/image/logo.png" alt="Logo" width={128} height={128} />
           </Link>
         </SidebarHeader>
         <SidebarContent>
