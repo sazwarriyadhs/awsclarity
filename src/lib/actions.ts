@@ -3,6 +3,7 @@
 import { z } from "zod";
 import { summarizeLogs } from "@/ai/flows/summarize-logs";
 import { getCostData, GetCostDataOutput } from "@/ai/flows/get-cost-data";
+import { getCiCdStatus, GetCiCdStatusOutput } from "@/ai/flows/get-cicd-status";
 
 const formSchema = z.object({
   timeFrame: z.string(),
@@ -57,5 +58,21 @@ export async function handleGetCostData(
     } catch (error) {
         console.error(error);
         return { status: "error", message: "Failed to fetch cost data." };
+    }
+}
+
+type CiCdStatusState = {
+    status: "success" | "error";
+    message?: string;
+    data?: GetCiCdStatusOutput;
+}
+
+export async function handleGetCiCdStatus(): Promise<CiCdStatusState> {
+    try {
+        const result = await getCiCdStatus();
+        return { status: "success", data: result };
+    } catch (error) {
+        console.error(error);
+        return { status: "error", message: "Failed to fetch CI/CD status." };
     }
 }

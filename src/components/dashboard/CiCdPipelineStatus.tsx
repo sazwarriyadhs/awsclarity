@@ -1,18 +1,13 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect, useTransition } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { cn } from '@/lib/utils';
-
-const pipelines = [
-  { name: 'frontend-deploy', status: 'Success', lastRun: '2h ago' },
-  { name: 'backend-deploy', status: 'Success', lastRun: '3h ago' },
-  { name: 'infra-staging', status: 'In Progress', lastRun: '5m ago' },
-  { name: 'e2e-tests', status: 'Failed', lastRun: '1d ago' },
-];
+import { Skeleton } from '@/components/ui/skeleton';
+import { handleGetCiCdStatus } from '@/lib/actions';
+import type { GetCiCdStatusOutput } from '@/ai/flows/get-cicd-status';
 
 const statusVariantMap = {
   Success: 'default',
@@ -22,12 +17,26 @@ const statusVariantMap = {
 
 export default function CiCdPipelineStatus() {
   const { t } = useLanguage();
+  const [pipelines, setPipelines] = useState<GetCiCdStatusOutput>([]);
+  const [isPending, startTransition] = useTransition();
   
   const statusTextMap = {
     Success: t.success,
     Failed: t.failed,
     'In Progress': t.inProgress,
   };
+
+  useEffect(() => {
+    startTransition(async () => {
+      const result = await handleGetCiCdStatus();
+      if (result.status === 'success' && result.data) {
+        setPipelines(result.data);
+      } else {
+        console.error(result.message);
+        setPipelines([]);
+      }
+    });
+  }, []);
 
   return (
     <Card className="h-full">
@@ -36,28 +45,36 @@ export default function CiCdPipelineStatus() {
         <CardDescription>Live status of your deployment pipelines</CardDescription>
       </CardHeader>
       <CardContent>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>{t.pipeline}</TableHead>
-              <TableHead>{t.status}</TableHead>
-              <TableHead className="text-right">{t.lastRun}</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {pipelines.map((p) => (
-              <TableRow key={p.name}>
-                <TableCell className="font-medium">{p.name}</TableCell>
-                <TableCell>
-                  <Badge variant={statusVariantMap[p.status as keyof typeof statusVariantMap] as any}>
-                    {statusTextMap[p.status as keyof typeof statusTextMap]}
-                  </Badge>
-                </TableCell>
-                <TableCell className="text-right text-muted-foreground">{p.lastRun}</TableCell>
-              </TableRow>
+        {isPending ? (
+          <div className="space-y-2">
+            {[...Array(5)].map((_, i) => (
+              <Skeleton key={i} className="h-10 w-full" />
             ))}
-          </TableBody>
-        </Table>
+          </div>
+        ) : (
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>{t.pipeline}</TableHead>
+                <TableHead>{t.status}</TableHead>
+                <TableHead className="text-right">{t.lastRun}</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {pipelines.map((p) => (
+                <TableRow key={p.name}>
+                  <TableCell className="font-medium">{p.name}</TableCell>
+                  <TableCell>
+                    <Badge variant={statusVariantMap[p.status] as any}>
+                      {statusTextMap[p.status]}
+                    </Badge>
+                  </TableCell>
+                  <TableCell className="text-right text-muted-foreground">{p.lastRun}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        )}
       </CardContent>
     </Card>
   );
