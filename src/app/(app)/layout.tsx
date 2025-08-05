@@ -24,6 +24,7 @@ import {
   GitBranch,
   DatabaseZap,
   LogOut,
+  Users,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -48,6 +49,7 @@ function AppLayout({ children }: { children: React.ReactNode }) {
     { href: '/dashboard', icon: <LayoutDashboard />, label: t.dashboard },
     { href: '/pipelines', icon: <GitBranch />, label: t.pipelines },
     { href: '/migrations', icon: <DatabaseZap />, label: t.migrations },
+    { href: '/users', icon: <Users />, label: t.userManagement },
     { href: '/logs', icon: <Bot />, label: t.logAnalysis },
     { href: '/settings', icon: <Settings />, label: t.settings },
   ];
@@ -56,6 +58,7 @@ function AppLayout({ children }: { children: React.ReactNode }) {
     '/dashboard': t.pageTitleDashboard,
     '/pipelines': t.pageTitlePipelines,
     '/migrations': t.pageTitleMigrations,
+    '/users': t.pageTitleUserManagement,
     '/logs': t.pageTitleLogs,
     '/settings': t.pageTitleSettings,
   };

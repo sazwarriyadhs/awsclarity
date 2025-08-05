@@ -6,6 +6,7 @@ import { getCostData, GetCostDataOutput } from "@/ai/flows/get-cost-data";
 import { getCiCdStatus, GetCiCdStatusOutput } from "@/ai/flows/get-cicd-status";
 import { getBudgetStatus, GetBudgetStatusOutput } from "@/ai/flows/get-budget-status";
 import { getMigrationStatus, GetMigrationStatusOutput } from "@/ai/flows/get-migration-status";
+import { getUsers, GetUsersOutput, updateUserRole, UpdateUserRoleInput, deleteUser } from "@/ai/flows/get-users";
 
 const formSchema = z.object({
   timeFrame: z.string(),
@@ -108,5 +109,54 @@ export async function handleGetMigrationStatus(): Promise<MigrationStatusState> 
     } catch (error) {
         console.error(error);
         return { status: "error", message: "Failed to fetch migration status." };
+    }
+}
+
+
+// User Management Actions
+type GetUsersState = {
+    status: "success" | "error";
+    message?: string;
+    data?: GetUsersOutput;
+};
+
+export async function handleGetUsers(): Promise<GetUsersState> {
+    try {
+        const result = await getUsers();
+        return { status: "success", data: result };
+    } catch (error) {
+        console.error(error);
+        return { status: "error", message: "Failed to fetch users." };
+    }
+}
+
+type UpdateUserRoleState = {
+    status: "success" | "error";
+    message?: string;
+};
+
+export async function handleUpdateUserRole(input: UpdateUserRoleInput): Promise<UpdateUserRoleState> {
+    try {
+        await updateUserRole(input);
+        return { status: "success" };
+    } catch (error) {
+        console.error(error);
+        return { status: "error", message: "Failed to update user role." };
+    }
+}
+
+
+type DeleteUserState = {
+    status: "success" | "error";
+    message?: string;
+};
+
+export async function handleDeleteUser(userId: string): Promise<DeleteUserState> {
+    try {
+        await deleteUser(userId);
+        return { status: "success" };
+    } catch (error) {
+        console.error(error);
+        return { status: "error", message: "Failed to delete user." };
     }
 }
