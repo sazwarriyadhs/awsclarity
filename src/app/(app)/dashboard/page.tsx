@@ -7,6 +7,7 @@ import InstanceStatusCard from '@/components/dashboard/InstanceStatusCard';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
+import BudgetAlertCard from '@/components/dashboard/BudgetAlertCard';
 
 export default function DashboardPage() {
   return (
@@ -35,8 +36,9 @@ export default function DashboardPage() {
         <div className="lg:col-span-3">
           <CostTrackerCard />
         </div>
-        <div className="lg:col-span-2">
+        <div className="lg:col-span-2 space-y-6">
            <CiCdPipelineStatus />
+           <BudgetAlertCard />
         </div>
       </div>
     </div>

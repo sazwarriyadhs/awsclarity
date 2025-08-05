@@ -4,6 +4,7 @@ import { z } from "zod";
 import { summarizeLogs } from "@/ai/flows/summarize-logs";
 import { getCostData, GetCostDataOutput } from "@/ai/flows/get-cost-data";
 import { getCiCdStatus, GetCiCdStatusOutput } from "@/ai/flows/get-cicd-status";
+import { getBudgetStatus, GetBudgetStatusOutput } from "@/ai/flows/get-budget-status";
 
 const formSchema = z.object({
   timeFrame: z.string(),
@@ -74,5 +75,21 @@ export async function handleGetCiCdStatus(): Promise<CiCdStatusState> {
     } catch (error) {
         console.error(error);
         return { status: "error", message: "Failed to fetch CI/CD status." };
+    }
+}
+
+type BudgetStatusState = {
+    status: "success" | "error";
+    message?: string;
+    data?: GetBudgetStatusOutput;
+};
+
+export async function handleGetBudgetStatus(): Promise<BudgetStatusState> {
+    try {
+        const result = await getBudgetStatus();
+        return { status: "success", data: result };
+    } catch (error) {
+        console.error(error);
+        return { status: "error", message: "Failed to fetch budget status." };
     }
 }

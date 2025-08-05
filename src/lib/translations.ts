@@ -57,6 +57,12 @@ export const translations = {
     deploymentPipelinesDesc: "Monitor the status and history of your deployment pipelines.",
     details: "Details",
     pipelineDetailsPlaceholder: "More details about the pipeline run, such as commit ID, duration, and logs would be displayed here.",
+    budgetAlerts: "Budget Alerts",
+    budgetError: "Could not load budget data.",
+    currentSpend: "Current Spend",
+    budgetLimit: "Budget Limit",
+    forecastedSpend: "Forecasted Spend",
+    forecastWarning: "Warning: Forecasted spend is projected to exceed the budget limit.",
   },
   id: {
     appName: "AWS Clarity",
@@ -116,6 +122,12 @@ export const translations = {
     deploymentPipelinesDesc: "Pantau status dan riwayat pipeline deployment Anda.",
     details: "Detail",
     pipelineDetailsPlaceholder: "Detail lebih lanjut tentang proses pipeline, seperti ID komit, durasi, dan log akan ditampilkan di sini.",
+    budgetAlerts: "Peringatan Anggaran",
+    budgetError: "Tidak dapat memuat data anggaran.",
+    currentSpend: "Pengeluaran Saat Ini",
+    budgetLimit: "Batas Anggaran",
+    forecastedSpend: "Perkiraan Pengeluaran",
+    forecastWarning: "Peringatan: Perkiraan pengeluaran diproyeksikan melebihi batas anggaran.",
   },
 };
 
