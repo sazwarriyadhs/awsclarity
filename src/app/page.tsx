@@ -32,6 +32,7 @@ export default function LandingPage() {
         <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6">
           <Link href="/" className="flex items-center gap-2">
              <Image src="/image/logo.png" alt="AWS Clarity Logo" width={80} height={80} />
+             <span className="font-headline text-xl font-bold">{t.appName}</span>
           </Link>
           <Button asChild>
             <Link href="/login">
@@ -44,7 +45,8 @@ export default function LandingPage() {
       {/* Hero Section */}
       <main>
         <section className="container mx-auto flex flex-col items-center justify-center px-4 py-20 text-center sm:px-6 md:py-32">
-          <h1 className="text-4xl font-extrabold tracking-tight font-headline sm:text-5xl md:text-6xl">
+           <Image src="/image/logo.png" alt="AWS Clarity Logo" width={120} height={120} className="mb-6" />
+          <h1 className="text-4xl font-extrabold tracking-tight font-headline text-primary sm:text-5xl md:text-6xl">
             {t.appName}: Your Mission Control for AWS
           </h1>
           <p className="mt-6 max-w-2xl text-lg text-muted-foreground sm:text-xl">
