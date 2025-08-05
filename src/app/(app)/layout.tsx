@@ -93,8 +93,8 @@ function AppLayout({ children }: { children: React.ReactNode }) {
             <Image
               src="/image/logo.png"
               alt="Logo"
-              width={128}
-              height={128}
+              width={256}
+              height={256}
             />
           </Link>
         </SidebarHeader>

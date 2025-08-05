@@ -31,8 +31,7 @@ export default function LandingPage() {
       <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur-sm">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6">
           <Link href="/" className="flex items-center gap-2">
-             <Image src="/image/logo.png" alt="AWS Clarity Logo" width={40} height={40} />
-            <span className="text-xl font-bold font-headline">{t.appName}</span>
+             <Image src="/image/logo.png" alt="AWS Clarity Logo" width={80} height={80} />
           </Link>
           <Button asChild>
             <Link href="/login">
