@@ -73,7 +73,9 @@ export default function UserManagementTable() {
       if (result.status === 'success' && result.data) {
         setUsers(result.data);
       } else {
-        console.error(result.message);
+        if (result.message) {
+            console.error(result.message);
+        }
         // TODO: Show toast on error
       }
     });
@@ -101,11 +103,16 @@ export default function UserManagementTable() {
 
   if (isPending && users.length === 0) {
     return (
-      <div className="space-y-2">
-        <Skeleton className="h-10 w-full" />
-        {[...Array(5)].map((_, i) => (
-          <Skeleton key={i} className="h-12 w-full" />
-        ))}
+      <div className="space-y-4">
+        <div className="flex justify-end">
+            <Skeleton className="h-10 w-28" />
+        </div>
+        <div className="space-y-2">
+            <Skeleton className="h-12 w-full" />
+            {[...Array(4)].map((_, i) => (
+            <Skeleton key={i} className="h-16 w-full" />
+            ))}
+        </div>
       </div>
     );
   }

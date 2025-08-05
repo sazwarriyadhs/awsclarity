@@ -9,7 +9,7 @@
  */
 
 import { ai } from '@/ai/genkit';
-import { z } from 'genkit';
+import { z } from 'zod';
 
 const UserRoleSchema = z.enum(['Admin', 'Developer', 'Viewer']);
 const UserStatusSchema = z.enum(['Active', 'Inactive']);
