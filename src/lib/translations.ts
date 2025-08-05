@@ -110,6 +110,10 @@ export const translations = {
     deleteUserConfirmation: "Are you sure you want to delete this user? This action cannot be undone.",
     delete: "Delete",
     users: "Users",
+    login: "Login",
+    loginDesc: "Enter your credentials to access your dashboard.",
+    password: "Password",
+    forgotPassword: "Forgot Password?",
   },
   id: {
     appName: "AWS Clarity",
@@ -222,6 +226,10 @@ export const translations = {
     deleteUserConfirmation: "Apakah Anda yakin ingin menghapus pengguna ini? Tindakan ini tidak dapat dibatalkan.",
     delete: "Hapus",
     users: "Pengguna",
+    login: "Masuk",
+    loginDesc: "Masukkan kredensial Anda untuk mengakses dasbor.",
+    password: "Kata Sandi",
+    forgotPassword: "Lupa Kata Sandi?",
   },
 };
 
