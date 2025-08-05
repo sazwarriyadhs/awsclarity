@@ -91,13 +91,29 @@ function AppLayout({ children }: { children: React.ReactNode }) {
           </SidebarMenu>
         </SidebarContent>
         <SidebarFooter>
-          <Image 
-            src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/aws-color.png" 
-            alt="AWS Logo"
-            width={128}
-            height={128}
-            className="w-full h-auto p-4"
-          />
+          <div className="p-4 text-center text-xs text-sidebar-foreground/70 group-data-[collapsible=icon]:hidden">
+            <p>Developed with love :</p>
+            <a href="https://www.digimediakomunika.cloud/" target="_blank" rel="noopener noreferrer">
+              <Image 
+                src="https://www.digimediakomunika.cloud/images/logo.png" 
+                alt="Digimedia Komunika Logo"
+                width={120}
+                height={40}
+                className="w-auto h-auto mx-auto mt-2"
+              />
+            </a>
+          </div>
+           <div className="hidden text-center text-xs text-sidebar-foreground/70 group-data-[collapsible=icon]:block p-2">
+            <a href="https://www.digimediakomunika.cloud/" target="_blank" rel="noopener noreferrer">
+              <Image 
+                src="https://www.digimediakomunika.cloud/images/logo.png" 
+                alt="Digimedia Komunika Logo"
+                width={32}
+                height={32}
+                className="w-auto h-auto mx-auto"
+              />
+            </a>
+          </div>
         </SidebarFooter>
       </Sidebar>
       <SidebarInset className="flex flex-col">

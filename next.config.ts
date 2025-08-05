@@ -21,6 +21,12 @@ const nextConfig: NextConfig = {
         hostname: 'registry.npmmirror.com',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.digimediakomunika.cloud',
+        port: '',
+        pathname: '/**',
       }
     ],
   },
