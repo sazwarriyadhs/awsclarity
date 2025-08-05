@@ -32,6 +32,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useLanguage } from '@/contexts/LanguageContext';
 import type { Language } from '@/lib/translations';
+import Image from 'next/image';
 
 function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -57,17 +58,7 @@ function AppLayout({ children }: { children: React.ReactNode }) {
       <Sidebar variant="sidebar" collapsible="icon">
         <SidebarHeader className="h-16 items-center p-4">
           <Link href="/dashboard" className="flex items-center gap-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              className="h-8 w-8 text-primary"
-              fill="currentColor"
-            >
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
-            </svg>
-            <span className="font-headline text-lg font-semibold text-sidebar-foreground">
-              {t.appName}
-            </span>
+            <Image src="/image/logo.png" alt="Logo" width={32} height={32} />
           </Link>
         </SidebarHeader>
         <SidebarContent>
