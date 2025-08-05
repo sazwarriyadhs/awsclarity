@@ -1,3 +1,4 @@
+
 'use client';
 
 import React from 'react';
@@ -45,14 +46,24 @@ function AppLayout({ children }: { children: React.ReactNode }) {
   const { t, language, setLanguage } = useLanguage();
   const { isMobile } = useSidebar();
 
-  const navItems = [
-    { href: '/dashboard', icon: <LayoutDashboard />, label: t.dashboard },
-    { href: '/pipelines', icon: <GitBranch />, label: t.pipelines },
-    { href: '/migrations', icon: <DatabaseZap />, label: t.migrations },
-    { href: '/users', icon: <Users />, label: t.userManagement },
-    { href: '/logs', icon: <Bot />, label: t.logAnalysis },
-    { href: '/settings', icon: <Settings />, label: t.settings },
+  // Simulate a logged-in user with a specific role
+  const user = { 
+    name: 'Bob Williams', 
+    email: 'bob.w@example.com', 
+    avatar: 'https://placehold.co/100x100.png',
+    role: 'Developer' as const // Change this to 'Admin', 'Developer', or 'Viewer' to test
+  };
+
+  const allNavItems = [
+    { href: '/dashboard', icon: <LayoutDashboard />, label: t.dashboard, roles: ['Admin', 'Developer', 'Viewer'] },
+    { href: '/pipelines', icon: <GitBranch />, label: t.pipelines, roles: ['Admin', 'Developer', 'Viewer'] },
+    { href: '/migrations', icon: <DatabaseZap />, label: t.migrations, roles: ['Admin', 'Developer'] },
+    { href: '/users', icon: <Users />, label: t.userManagement, roles: ['Admin'] },
+    { href: '/logs', icon: <Bot />, label: t.logAnalysis, roles: ['Admin', 'Developer'] },
+    { href: '/settings', icon: <Settings />, label: t.settings, roles: ['Admin'] },
   ];
+
+  const navItems = allNavItems.filter(item => item.roles.includes(user.role));
 
   const pageTitles: { [key: string]: string } = {
     '/dashboard': t.pageTitleDashboard,
@@ -64,9 +75,6 @@ function AppLayout({ children }: { children: React.ReactNode }) {
   };
 
   const currentPageTitle = pageTitles[pathname] || t.appName;
-
-  // Dummy user data for profile
-  const user = { name: 'Alice', email: 'alice@example.com', avatar: 'https://placehold.co/100x100.png' };
 
   return (
     <div className="flex min-h-screen w-full">
@@ -187,6 +195,14 @@ function AppLayout({ children }: { children: React.ReactNode }) {
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
+                 {user.role === 'Admin' && (
+                  <Link href="/users">
+                    <DropdownMenuItem>
+                      <Users className="mr-2 h-4 w-4" />
+                      <span>{t.userManagement}</span>
+                    </DropdownMenuItem>
+                  </Link>
+                 )}
                  <Link href="/settings">
                   <DropdownMenuItem>
                     <Settings className="mr-2 h-4 w-4" />
