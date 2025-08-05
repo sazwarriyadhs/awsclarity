@@ -21,6 +21,7 @@ import {
   CircleUserRound,
   ChevronDown,
   GitBranch,
+  DatabaseZap,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -43,6 +44,7 @@ function AppLayout({ children }: { children: React.ReactNode }) {
   const navItems = [
     { href: '/dashboard', icon: <LayoutDashboard />, label: t.dashboard },
     { href: '/pipelines', icon: <GitBranch />, label: t.pipelines },
+    { href: '/migrations', icon: <DatabaseZap />, label: t.migrations },
     { href: '/logs', icon: <Bot />, label: t.logAnalysis },
     { href: '/settings', icon: <Settings />, label: t.settings },
   ];
@@ -50,6 +52,7 @@ function AppLayout({ children }: { children: React.ReactNode }) {
   const pageTitles: { [key: string]: string } = {
     '/dashboard': t.pageTitleDashboard,
     '/pipelines': t.pageTitlePipelines,
+    '/migrations': t.pageTitleMigrations,
     '/logs': t.pageTitleLogs,
     '/settings': t.pageTitleSettings,
   };
@@ -61,7 +64,12 @@ function AppLayout({ children }: { children: React.ReactNode }) {
       <Sidebar variant="sidebar" collapsible="icon">
         <SidebarHeader className="items-center p-4 h-auto">
           <Link href="/dashboard">
-            <Image src="/image/logo.png" alt="Logo" width={128} height={128} />
+            <Image
+              src="/image/logo.png"
+              alt="Logo"
+              width={128}
+              height={128}
+            />
           </Link>
         </SidebarHeader>
         <SidebarContent>
