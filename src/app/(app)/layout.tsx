@@ -20,6 +20,7 @@ import {
   Settings,
   CircleUserRound,
   ChevronDown,
+  GitBranch,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -41,12 +42,14 @@ function AppLayout({ children }: { children: React.ReactNode }) {
 
   const navItems = [
     { href: '/dashboard', icon: <LayoutDashboard />, label: t.dashboard },
+    { href: '/pipelines', icon: <GitBranch />, label: t.pipelines },
     { href: '/logs', icon: <Bot />, label: t.logAnalysis },
     { href: '/settings', icon: <Settings />, label: t.settings },
   ];
 
   const pageTitles: { [key: string]: string } = {
     '/dashboard': t.pageTitleDashboard,
+    '/pipelines': t.pageTitlePipelines,
     '/logs': t.pageTitleLogs,
     '/settings': t.pageTitleSettings,
   };
@@ -57,7 +60,7 @@ function AppLayout({ children }: { children: React.ReactNode }) {
     <div className="flex min-h-screen w-full">
       <Sidebar variant="sidebar" collapsible="icon">
         <SidebarHeader className="items-center p-4 h-auto">
-          <Link href="/dashboard" className="flex items-center gap-2">
+          <Link href="/dashboard">
             <Image src="/image/logo.png" alt="Logo" width={128} height={128} />
           </Link>
         </SidebarHeader>

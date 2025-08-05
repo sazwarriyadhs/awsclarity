@@ -50,6 +50,12 @@ export const translations = {
     pageTitleSettings: "Application Settings",
     profile: "My Profile",
     logout: "Logout",
+    pipelines: "Pipelines",
+    pageTitlePipelines: "Deployment Pipelines",
+    deploymentPipelines: "Deployment Pipelines",
+    deploymentPipelinesDesc: "Monitor the status and history of your deployment pipelines.",
+    details: "Details",
+    pipelineDetailsPlaceholder: "More details about the pipeline run, such as commit ID, duration, and logs would be displayed here.",
   },
   id: {
     appName: "AWS Clarity",
@@ -102,6 +108,12 @@ export const translations = {
     pageTitleSettings: "Pengaturan Aplikasi",
     profile: "Profil Saya",
     logout: "Keluar",
+    pipelines: "Pipelines",
+    pageTitlePipelines: "Pipeline Deployment",
+    deploymentPipelines: "Pipeline Deployment",
+    deploymentPipelinesDesc: "Pantau status dan riwayat pipeline deployment Anda.",
+    details: "Detail",
+    pipelineDetailsPlaceholder: "Detail lebih lanjut tentang proses pipeline, seperti ID komit, durasi, dan log akan ditampilkan di sini.",
   },
 };
 

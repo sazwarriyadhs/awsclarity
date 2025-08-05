@@ -4,6 +4,9 @@ import { Server, CloudLightning, Database, GitBranch } from 'lucide-react';
 import CostTrackerCard from '@/components/dashboard/CostTrackerCard';
 import CiCdPipelineStatus from '@/components/dashboard/CiCdPipelineStatus';
 import InstanceStatusCard from '@/components/dashboard/InstanceStatusCard';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { ArrowRight } from 'lucide-react';
 
 export default function DashboardPage() {
   return (
@@ -33,7 +36,7 @@ export default function DashboardPage() {
           <CostTrackerCard />
         </div>
         <div className="lg:col-span-2">
-          <CiCdPipelineStatus />
+           <CiCdPipelineStatus />
         </div>
       </div>
     </div>
