@@ -16,8 +16,11 @@ const GetCostDataInputSchema = z.object({
 export type GetCostDataInput = z.infer<typeof GetCostDataInputSchema>;
 
 const CostDataItemSchema = z.object({
-  name: z.string(),
-  cost: z.number(),
+  name: z.string(), // Represents the time unit (e.g., 'Mon', 'Jan')
+  EC2: z.number(),
+  Lambda: z.number(),
+  RDS: z.number(),
+  S3: z.number(),
 });
 
 const GetCostDataOutputSchema = z.array(CostDataItemSchema);
@@ -34,26 +37,33 @@ const getCostDataFlow = ai.defineFlow(
     outputSchema: GetCostDataOutputSchema,
   },
   async ({ timePeriod }) => {
-    // In a real application, this would call the AWS Cost Explorer API.
+    // In a real application, this would call the AWS Cost Explorer API and aggregate by service.
     // Here, we're returning mock data.
+    const generateServiceCosts = (base: number) => ({
+        EC2: Math.floor(Math.random() * (base * 0.4)) + (base * 0.2),
+        Lambda: Math.floor(Math.random() * (base * 0.15)) + (base * 0.05),
+        RDS: Math.floor(Math.random() * (base * 0.25)) + (base * 0.1),
+        S3: Math.floor(Math.random() * (base * 0.1)) + (base * 0.02),
+    });
+
     if (timePeriod === 'daily') {
       return [
-        { name: 'Mon', cost: Math.floor(Math.random() * 20) + 40 },
-        { name: 'Tue', cost: Math.floor(Math.random() * 20) + 45 },
-        { name: 'Wed', cost: Math.floor(Math.random() * 20) + 42 },
-        { name: 'Thu', cost: Math.floor(Math.random() * 20) + 55 },
-        { name: 'Fri', cost: Math.floor(Math.random() * 20) + 50 },
-        { name: 'Sat', cost: Math.floor(Math.random() * 20) + 25 },
-        { name: 'Sun', cost: Math.floor(Math.random() * 20) + 20 },
+        { name: 'Mon', ...generateServiceCosts(50) },
+        { name: 'Tue', ...generateServiceCosts(55) },
+        { name: 'Wed', ...generateServiceCosts(52) },
+        { name: 'Thu', ...generateServiceCosts(65) },
+        { name: 'Fri', ...generateServiceCosts(60) },
+        { name: 'Sat', ...generateServiceCosts(35) },
+        { name: 'Sun', ...generateServiceCosts(30) },
       ];
     } else {
-      return [
-        { name: 'Jan', cost: Math.floor(Math.random() * 400) + 1100 },
-        { name: 'Feb', cost: Math.floor(Math.random() * 400) + 1000 },
-        { name: 'Mar', cost: Math.floor(Math.random() * 400) + 1250 },
-        { name: 'Apr', cost: Math.floor(Math.random() * 400) + 1300 },
-        { name: 'May', cost: Math.floor(Math.random() * 400) + 1500 },
-        { name: 'Jun', cost: Math.floor(Math.random() * 400) + 1450 },
+       return [
+        { name: 'Jan', ...generateServiceCosts(1200) },
+        { name: 'Feb', ...generateServiceCosts(1100) },
+        { name: 'Mar', ...generateServiceCosts(1350) },
+        { name: 'Apr', ...generateServiceCosts(1400) },
+        { name: 'May', ...generateServiceCosts(1600) },
+        { name: 'Jun', ...generateServiceCosts(1550) },
       ];
     }
   }

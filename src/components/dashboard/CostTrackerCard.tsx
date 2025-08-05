@@ -2,18 +2,32 @@
 
 import React, { useState, useEffect, useTransition } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip } from 'recharts';
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from 'recharts';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useLanguage } from '@/contexts/LanguageContext';
 import type { GetCostDataOutput } from '@/ai/flows/get-cost-data';
 import { handleGetCostData } from '@/lib/actions';
 import { Skeleton } from '@/components/ui/skeleton';
 
+const serviceColors = {
+  EC2: 'hsl(var(--chart-1))',
+  Lambda: 'hsl(var(--chart-2))',
+  RDS: 'hsl(var(--chart-3))',
+  S3: 'hsl(var(--chart-4))',
+};
+
 export default function CostTrackerCard() {
   const { t } = useLanguage();
   const [view, setView] = useState<'daily' | 'monthly'>('daily');
   const [data, setData] = useState<GetCostDataOutput>([]);
   const [isPending, startTransition] = useTransition();
+
+  const serviceNameMap = {
+    EC2: t.ec2,
+    Lambda: t.lambda,
+    RDS: t.rds,
+    S3: 'S3'
+  };
 
   useEffect(() => {
     startTransition(async () => {
@@ -56,6 +70,7 @@ export default function CostTrackerCard() {
           ) : (
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={data} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
+                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
                 <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
                 <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value) => `$${value}`} />
                 <Tooltip
@@ -65,8 +80,13 @@ export default function CostTrackerCard() {
                     border: '1px solid hsl(var(--border))',
                     borderRadius: 'var(--radius)'
                   }}
+                  formatter={(value, name) => [`$${value}`, serviceNameMap[name as keyof typeof serviceNameMap]]}
                 />
-                <Bar dataKey="cost" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                <Legend formatter={(value) => serviceNameMap[value as keyof typeof serviceNameMap]}/>
+                <Bar dataKey="EC2" stackId="a" fill={serviceColors.EC2} radius={[4, 4, 0, 0]} />
+                <Bar dataKey="Lambda" stackId="a" fill={serviceColors.Lambda} />
+                <Bar dataKey="RDS" stackId="a" fill={serviceColors.RDS} />
+                <Bar dataKey="S3" stackId="a" fill={serviceColors.S3} radius={[0, 0, 0, 0]}/>
               </BarChart>
             </ResponsiveContainer>
           )}
