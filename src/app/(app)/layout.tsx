@@ -93,15 +93,24 @@ function AppLayout({ children }: { children: React.ReactNode }) {
         <SidebarFooter>
           <div className="p-4 text-center text-xs text-sidebar-foreground/70 group-data-[collapsible=icon]:hidden">
             <p>Developed with love :</p>
-            <a href="https://www.digimediakomunika.cloud/" target="_blank" rel="noopener noreferrer">
-              <Image 
-                src="https://www.digimediakomunika.cloud/images/logo.png" 
-                alt="Digimedia Komunika Logo"
-                width={120}
-                height={40}
-                className="w-auto h-auto mx-auto mt-2"
-              />
-            </a>
+             <div className="flex items-center justify-center space-x-4 mt-2">
+                <a href="https://www.digimediakomunika.cloud/" target="_blank" rel="noopener noreferrer">
+                <Image 
+                    src="https://www.digimediakomunika.cloud/images/logo.png" 
+                    alt="Digimedia Komunika Logo"
+                    width={100}
+                    height={33}
+                    className="w-auto h-auto"
+                />
+                </a>
+                 <Image
+                    src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/aws-color.png"
+                    alt="AWS Logo"
+                    width={33}
+                    height={33}
+                    className="w-auto h-auto"
+                />
+            </div>
           </div>
            <div className="hidden text-center text-xs text-sidebar-foreground/70 group-data-[collapsible=icon]:block p-2">
             <a href="https://www.digimediakomunika.cloud/" target="_blank" rel="noopener noreferrer">
@@ -110,9 +119,16 @@ function AppLayout({ children }: { children: React.ReactNode }) {
                 alt="Digimedia Komunika Logo"
                 width={32}
                 height={32}
-                className="w-auto h-auto mx-auto"
+                className="w-auto h-auto mx-auto mb-2"
               />
             </a>
+            <Image
+                src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/aws-color.png"
+                alt="AWS Logo"
+                width={24}
+                height={24}
+                className="w-auto h-auto mx-auto"
+            />
           </div>
         </SidebarFooter>
       </Sidebar>
