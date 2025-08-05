@@ -79,6 +79,9 @@ export const translations = {
     statusFailed: "Failed",
     statusInProgress: "In Progress",
     statusPending: "Pending",
+    awsConnection: "AWS Connection",
+    awsConnectionDesc: "Connect your AWS account to enable live data monitoring.",
+    connectAccount: "Connect Account",
   },
   id: {
     appName: "AWS Clarity",
@@ -160,6 +163,9 @@ export const translations = {
     statusFailed: "Gagal",
     statusInProgress: "Sedang Berjalan",
     statusPending: "Tertunda",
+    awsConnection: "Koneksi AWS",
+    awsConnectionDesc: "Hubungkan akun AWS Anda untuk mengaktifkan pemantauan data langsung.",
+    connectAccount: "Hubungkan Akun",
   },
 };
 
