@@ -1,9 +1,9 @@
 
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import {
   Sidebar,
   SidebarContent,
@@ -43,6 +43,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const router = useRouter();
   const { t, language, setLanguage } = useLanguage();
   const { isMobile } = useSidebar();
 
@@ -64,6 +65,14 @@ function AppLayout({ children }: { children: React.ReactNode }) {
   ];
 
   const navItems = allNavItems.filter(item => item.roles.includes(user.role));
+  
+  useEffect(() => {
+    const currentNavItem = allNavItems.find(item => pathname.startsWith(item.href));
+    if (currentNavItem && !currentNavItem.roles.includes(user.role)) {
+      router.push('/dashboard');
+    }
+  }, [pathname, user.role, router, allNavItems]);
+
 
   const pageTitles: { [key: string]: string } = {
     '/dashboard': t.pageTitleDashboard,
